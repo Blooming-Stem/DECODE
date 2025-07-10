@@ -5,8 +5,8 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 public class LConstants {
     static {
-        TwoWheelConstants.forwardTicksToInches = .0045;
-        TwoWheelConstants.strafeTicksToInches = .0043;
+        TwoWheelConstants.forwardTicksToInches = .003;
+        TwoWheelConstants.strafeTicksToInches = .003;
         TwoWheelConstants.forwardY = 6;
         TwoWheelConstants.strafeX = 7.0;
         TwoWheelConstants.forwardEncoder_HardwareMapName = "omback";
