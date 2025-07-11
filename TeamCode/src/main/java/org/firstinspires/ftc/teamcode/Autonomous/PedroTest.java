@@ -48,6 +48,37 @@ public class PedroTest extends LinearOpMode {
     private final Pose scorePose = new Pose(14, 129, Math.toRadians(315));
     public void runOpMode(){
         FinalRobot robot = new FinalRobot(this);
+
+//        Path line2 = new Path(new BezierCurve(
+//                new Point(38.804, 65.944, Point.CARTESIAN),
+//                new Point(7.178, 18.393, Point.CARTESIAN),
+//                new Point(43.065, 39.701, Point.CARTESIAN),
+//                new Point(26.019, 24.000, Point.CARTESIAN),
+//                new Point(67.738, 57.645, Point.CARTESIAN),
+//                new Point(67.065, 18.393, Point.CARTESIAN),
+//                new Point(69.981, 39.701, Point.CARTESIAN),
+//                new Point(37.682, 27.589, Point.CARTESIAN),
+//                new Point(68.187, 23.776, Point.CARTESIAN),
+//                new Point(62.131, 19.290, Point.CARTESIAN),
+//                new Point(69.757, 25.794, Point.CARTESIAN),
+//                new Point(16.150, 21.981, Point.CARTESIAN)
+//        ));
+//        line2.setLinearHeadingInterpolation(0, 0);
+//
+//        Path line3 = new Path(new BezierCurve(
+//                new Point(16.150, 21.981, Point.CARTESIAN),
+//                new Point(53.832, 20.636, Point.CARTESIAN),
+//                new Point(65.720, 27.813, Point.CARTESIAN),
+//                new Point(52.486, 16.374, Point.CARTESIAN),
+//                new Point(58.766, 30.056, Point.CARTESIAN),
+//                new Point(54.729, 10.991, Point.CARTESIAN),
+//                new Point(68.860, 13.009, Point.CARTESIAN),
+//                new Point(42.393, 14.579, Point.CARTESIAN),
+//                new Point(62.355, 14.804, Point.CARTESIAN),
+//                new Point(15.925, 15.028, Point.CARTESIAN)
+//        ));
+//        line3.setLinearHeadingInterpolation(0, 0);
+
         Path line1 = new Path(new BezierLine(new Point(6.056, 56.523, Point.CARTESIAN), new Point(32.299, 71.327, Point.CARTESIAN)));
         line1.setLinearHeadingInterpolation(0, 0);
 
@@ -114,6 +145,7 @@ public class PedroTest extends LinearOpMode {
         Path line22 = new Path(new BezierLine(new Point(11.664, 35.215, Point.CARTESIAN), new Point(37.234, 63.701, Point.CARTESIAN)));
         line22.setLinearHeadingInterpolation(0, 0);
 
+
         while(opModeInInit()&&!isStopRequested()) {
 
 
@@ -141,9 +173,8 @@ public class PedroTest extends LinearOpMode {
                                 new FollowPathAction(robot.follower, line1),
 
                                 new FollowPathAction(robot.follower, line2),
-
                                 new FollowPathAction(robot.follower, line3),
-
+//
                                 new FollowPathAction(robot.follower, line4),
 
                                 new FollowPathAction(robot.follower, line5),
