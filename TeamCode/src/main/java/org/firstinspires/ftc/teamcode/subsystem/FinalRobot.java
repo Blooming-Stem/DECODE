@@ -44,6 +44,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.psilynx.psikit.Logger;
 import org.psilynx.psikit.io.RLOGServer;
+import org.psilynx.psikit.io.RLOGWriter;
 import org.psilynx.psikit.wpi.Pose2d;
 import org.psilynx.psikit.wpi.Rotation2d;
 import org.psilynx.psikit.wpi.Translation2d;
@@ -580,7 +581,10 @@ public class FinalRobot {
             Translation2d closestposeXY = new Translation2d((follower.getClosestPose().getY()-72) * 0.0254, -(follower.getClosestPose().getX()-72) * 0.0254);
             Rotation2d closestposeHeading = new Rotation2d(follower.getClosestPose().getHeading()-Math.toRadians(90));
             Logger.recordOutput("2024-2025 Field/Ghost", new Pose2d(closestposeXY, closestposeHeading));
+
         }
+        telemetryThis.addData("Path", follower.getCurrentPathNumber());
+        telemetryThis.update();
     }
 
     public class UpdateLogger implements Action{
@@ -596,7 +600,9 @@ public class FinalRobot {
     public void updateLoggerInit(){
 
         RLOGServer server = new RLOGServer();
+        RLOGWriter writer = new RLOGWriter("AdvantageScopeLogs");
         Logger.addDataReceiver(server);
+        Logger.addDataReceiver(writer);
         Translation2d poseXY = new Translation2d((follower.getPose().getY()-72) * 0.0254, -(follower.getPose().getX()-72) * 0.0254);
         Rotation2d poseHeading = new Rotation2d(follower.getPose().getHeading()-Math.toRadians(90));
         Logger.recordOutput("2024-2025 Field", new Pose2d(poseXY, poseHeading));

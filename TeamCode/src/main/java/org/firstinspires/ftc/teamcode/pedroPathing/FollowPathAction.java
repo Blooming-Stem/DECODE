@@ -22,6 +22,7 @@ public class FollowPathAction implements Action {
     private boolean holdEnd = false;
 
     private boolean started = false;
+    private boolean pathDone = false;
 
     public FollowPathAction(Follower follower, Path path, boolean holdEnd) {
         this.m_follower = follower;
@@ -60,7 +61,9 @@ public class FollowPathAction implements Action {
         //m_follower.update();
         Drawing.drawDebug(m_follower);
 
+        if(!m_follower.isBusy()) pathDone = true;
 
-        return m_follower.isBusy();
+
+        return !pathDone;
     }
 }
