@@ -47,6 +47,7 @@ public class FollowPathAction implements Action {
 
     @Override
     public boolean run(TelemetryPacket packet) {
+        m_follower.update();
         if(!started) {
             if(m_path != null) {
                 m_follower.followPath(m_path, holdEnd);
@@ -58,6 +59,7 @@ public class FollowPathAction implements Action {
 
         //m_follower.update();
         Drawing.drawDebug(m_follower);
+
 
         return m_follower.isBusy();
     }

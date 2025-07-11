@@ -43,7 +43,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.psilynx.psikit.Logger;
-import org.psilynx.psikit.RLOGServer;
+import org.psilynx.psikit.io.RLOGServer;
 import org.psilynx.psikit.wpi.Pose2d;
 import org.psilynx.psikit.wpi.Rotation2d;
 import org.psilynx.psikit.wpi.Translation2d;
@@ -510,10 +510,13 @@ public class FinalRobot {
     public class UpdateFollower implements Action{
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            follower.update();
-            follower.telemetryDebug(telemetryThis);
-            follower.updatePose();
-            follower.drawOnDashBoard();
+
+            if(follower.isBusy()) {
+                follower.update();
+                follower.telemetryDebug(telemetryThis);
+                follower.updatePose();
+                follower.drawOnDashBoard();
+            }
             return true;
         }
     }
