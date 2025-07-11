@@ -69,7 +69,7 @@ public class StraightBackAndForth extends LinearOpMode {
                     + " inches forward. The robot will go forward and backward continuously"
                     + " along the path. Make sure you have enough room.");
             telemetryA.update();
-            robot.updateLoggerInit();
+            robot.updateLoggerInit("StraightBackAndForth", "PSILogger");
         }
         waitForStart();
 

@@ -597,24 +597,16 @@ public class FinalRobot {
     public Action updateLogger(){
         return new UpdateLogger();
     }
-    public void updateLoggerInit(){
+    public void updateLoggerInit(String opModeName, String value){
 
         RLOGServer server = new RLOGServer();
         RLOGWriter writer = new RLOGWriter("AdvantageScopeLogs");
         Logger.addDataReceiver(server);
         Logger.addDataReceiver(writer);
-        Translation2d poseXY = new Translation2d((follower.getPose().getY()-72) * 0.0254, -(follower.getPose().getX()-72) * 0.0254);
-        Rotation2d poseHeading = new Rotation2d(follower.getPose().getHeading()-Math.toRadians(90));
-        Logger.recordOutput("2024-2025 Field", new Pose2d(poseXY, poseHeading));
-        if(follower.isBusy()){
-            Translation2d closestposeXY = new Translation2d((follower.getClosestPose().getY()-72) * 0.0254, -(follower.getClosestPose().getX()-72) * 0.0254);
-            Rotation2d closestposeHeading = new Rotation2d(follower.getClosestPose().getHeading()-Math.toRadians(90));
-            Logger.recordOutput("2024-2025 Field/Ghost", new Pose2d(closestposeXY, closestposeHeading));
-        }
-
+        Logger.recordMetadata(opModeName, value);
         Logger.start();
         Logger.periodicAfterUser(0, 0);
-        Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
+        // Start logging! No more data receivers, replay sources, or metadata values may be added.
     }
 
 
