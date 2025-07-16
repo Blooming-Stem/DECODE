@@ -24,11 +24,9 @@ import org.firstinspires.ftc.teamcode.pedroPathing.FollowPathAction;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.subsystem.FinalRobot;
-import org.psilynx.psikit.Logger;
-import org.psilynx.psikit.io.RLOGServer;
-import org.psilynx.psikit.wpi.Pose2d;
-import org.psilynx.psikit.wpi.Rotation2d;
-import org.psilynx.psikit.wpi.Translation2d;
+import org.psilynx.psikit.core.Logger;
+import org.psilynx.psikit.core.rlog.RLOGServer;
+
 
 @Autonomous(name="monkeytest")
 public class PedroTest extends LinearOpMode {
@@ -43,7 +41,7 @@ public class PedroTest extends LinearOpMode {
     private Path backwards;
     public static PathChain line1 = new PathBuilder()
             .addPath(new BezierLine(
-                    new Point(6.056, 56.523, Point.CARTESIAN),
+                    new Point(8, 56, Point.CARTESIAN),
                     new Point(32.299, 71.327, Point.CARTESIAN)))
             .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
             .build();
@@ -108,14 +106,14 @@ public class PedroTest extends LinearOpMode {
     public static PathChain line10 = new PathBuilder()
             .addPath(new BezierLine(
                     new Point(48.000, 18.168, Point.CARTESIAN),
-                    new Point(47.776, 9.421, Point.CARTESIAN)))
+                    new Point(47.776, 12.421, Point.CARTESIAN)))
             .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
             .build();
 
     public static PathChain line11 = new PathBuilder()
             .addPath(new BezierLine(
-                    new Point(47.776, 9.421, Point.CARTESIAN),
-                    new Point(17.495, 8.748, Point.CARTESIAN)))
+                    new Point(47.776, 12.421, Point.CARTESIAN),
+                    new Point(17.495, 12.748, Point.CARTESIAN)))
             .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
             .build();
 
@@ -379,13 +377,18 @@ public class PedroTest extends LinearOpMode {
 
                                 new FollowPathAction(robot.follower, line21,true),
 
-                                new FollowPathAction(robot.follower, line22,true)
+                                new FollowPathAction(robot.follower, line22,true),
+                                new InstantAction(()->{
+                                    robot.shouldRunAction = false;
+        })
                         ),
 
                         robot.updateLogger(),
                         robot.updateLoggerEnd()
+                        //robot.sleepthing()
                 )
         );
+        //Logger.end();
 
 
     }

@@ -42,12 +42,13 @@ import com.qualcomm.robotcore.hardware.configuration.ServoHubConfiguration;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.psilynx.psikit.Logger;
-import org.psilynx.psikit.io.RLOGServer;
-import org.psilynx.psikit.io.RLOGWriter;
-import org.psilynx.psikit.wpi.Pose2d;
-import org.psilynx.psikit.wpi.Rotation2d;
-import org.psilynx.psikit.wpi.Translation2d;
+import org.psilynx.psikit.core.Logger;
+import org.psilynx.psikit.core.rlog.RLOGServer;
+import org.psilynx.psikit.core.rlog.RLOGWriter;
+import org.psilynx.psikit.core.wpi.Pose2d;
+import org.psilynx.psikit.core.wpi.Rotation2d;
+import org.psilynx.psikit.core.wpi.Translation2d;
+
 
 @Config
 
@@ -91,6 +92,7 @@ public class FinalRobot {
     public double beforeUserStart;
     public double afterUserStart;
     public double beforeUserEnd;
+    public boolean shouldRunAction = true;
     LynxModule myRevHub;
 
     LynxModule myExpansionHub;
@@ -548,7 +550,7 @@ public class FinalRobot {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             updateLoggerFunction();
-            return true;
+            return shouldRunAction;
         }
     }
     public Action updateLoggerBeginning(){
@@ -567,7 +569,7 @@ public class FinalRobot {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             updateLoggerEndFunc();
-            return true;
+            return shouldRunAction;
         }
     }
     public Action updateLoggerEnd(){
@@ -591,16 +593,30 @@ public class FinalRobot {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             updateLoggerFunction();
-            return true;
+            return shouldRunAction;
         }
     }
     public Action updateLogger(){
         return new UpdateLogger();
     }
+    public class Sleep implements Action{
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return shouldRunAction;
+        }
+    }
+    public Action sleepthing(){
+        return new Sleep();
+    }
     public void updateLoggerInit(String opModeName, String value){
 
         RLOGServer server = new RLOGServer();
-        RLOGWriter writer = new RLOGWriter("AdvantageScopeLogs");
+        RLOGWriter writer = new RLOGWriter("/sdcard/FIRST/userLogs", "finalascopetesting");
         Logger.addDataReceiver(server);
         Logger.addDataReceiver(writer);
         Logger.recordMetadata(opModeName, value);
